@@ -7,14 +7,14 @@ import { PieChart, Pie, Cell, LabelList } from "recharts";
 const App = () => {
   const [csvData,setCsvData] = useState<DemoDataRow[]>([]);
   const [pieData,setPieData] = useState<PieDataRow[]>([]);
-  const csvFileUrl = '/data/demo.csv'; // FIX ME
+  const csvFileUrl = '/data/Data.csv'; // FIX ME
 
   const getData = async () => {
     let response = await fetch(csvFileUrl);
     let text = await response.text();
     let parsed = await papa.parse<DemoDataRow>(text,{header:true});
     console.log('Successfully parsed data:',parsed); // Log to make it easy to inspect shape of our data in the inspector
-    setCsvData(parsed.data.filter((row)=>row.Name)); // Only keep rows that have a name, so we avoid blank row at end of file
+    setCsvData(parsed.data) // Only keep rows that have a name, so we avoid blank row at end of file
   }
 
 
