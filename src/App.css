@@ -1,0 +1,60 @@
+body {
+  background-color: #f3f3ff;
+  color: #17171b;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+figure {
+  max-width: 40vw;
+}
+figure img {
+  max-width: 100%;
+}
+nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+nav > div {
+  display: flex;
+  align-items: center;
+}
+.attribution,
+.size {
+  font-size: x-small;
+}
+.side-by-side {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.filtered-image canvas {
+  max-width: 40vw;
+}
+h1 {
+  text-align: center;
+}
+.bar {
+  height: 64px;
+}
+.bar button {
+  margin-right: 8px;
+  padding: 8px;
+  background-color: white;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+}
+.bar button:hover {
+  background-color: #f8f8f8;
+}
+.options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.options input[type="number"] {
+  width: 3em;
+}
