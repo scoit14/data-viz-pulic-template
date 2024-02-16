@@ -31,10 +31,10 @@ const App = () => {
       let newPieData : PieDataRow[] = [];
       csvData.forEach(
         (row)=>{
-          if (!newPieCounts[row["Favorite Color"]]) {
-            newPieCounts[row["Favorite Color"]] = 0; // initialize if not there...
+          if (!newPieCounts[row["Age of Driver - Youngest Known"]]) {
+            newPieCounts[row["Roadway"]] = 0; // initialize if not there...
           }
-          newPieCounts[row["Favorite Color"]]++ // Add one!
+          newPieCounts[row["Roadway"]]++ // Add one!
         }
       )
       for (let key in newPieCounts) {
@@ -64,7 +64,7 @@ const App = () => {
 
       </PieChart>
       {csvData.map(
-        (row,idx)=><div key={idx}>{row.Name} age {row.Age}'s favorite color is {row["Favorite Color"]} and they play {row["Favorite Sport"]}</div>
+        (row,idx)=><div key={idx}>{row.Age}'s favorite color is {row["Age of Driver"]} and they play {row["Favorite Sport"]}</div>
       )}
     </main>
   );
