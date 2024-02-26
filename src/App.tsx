@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import papa from 'papaparse'
 import "./App.css";
-import type { DemoDataRow, PieDataRow } from "./types";
+import type { DataRow, PieDataRow } from "./types";
 import { PieChart, Pie, Cell, LabelList } from "recharts";
 
 const App = () => {
-  const [csvData,setCsvData] = useState<DemoDataRow[]>([]);
+  const [csvData,setCsvData] = useState<DataRow[]>([]);
   const [pieData,setPieData] = useState<PieDataRow[]>([]);
   const csvFileUrl = '/data/Data.csv'; // FIX ME
 
   const getData = async () => {
     let response = await fetch(csvFileUrl);
     let text = await response.text();
-    let parsed = await papa.parse<DemoDataRow>(text,{header:true});
+    let parsed = await papa.parse<DataRow>(text,{header:true});
     console.log('Successfully parsed data:',parsed); // Log to make it easy to inspect shape of our data in the inspector
     setCsvData(parsed.data) // Only keep rows that have a name, so we avoid blank row at end of file
   }
@@ -31,10 +31,10 @@ const App = () => {
       let newPieData : PieDataRow[] = [];
       csvData.forEach(
         (row)=>{
-          if (!newPieCounts[row["Age of Driver - Youngest Known"]]) {
-            newPieCounts[row["Roadway"]] = 0; // initialize if not there...
+          if (!newPieCounts[row["Manner of Collision"]]) {
+            newPieCounts[row["Manner of Collision"]] = 0; // initialize if not there...
           }
-          newPieCounts[row["Roadway"]]++ // Add one!
+          newPieCounts[row["Manner of Collision"]]++ // Add one!
         }
       )
       for (let key in newPieCounts) {
@@ -63,8 +63,15 @@ const App = () => {
         </Pie>
 
       </PieChart>
+      {
+        pieData.map(
+          (row,idx)=><div key={idx}>{row.name} : {row.value}</div>
+        )        
+      }
+
+
       {csvData.map(
-        (row,idx)=><div key={idx}>{row.Age}'s favorite color is {row["Age of Driver"]} and they play {row["Favorite Sport"]}</div>
+        (row,idx)=><div key={idx}>{}'s favorite color is {row["Age of Driver - Youngest Known"]} and they play {row["Age of Driver - Oldest"]}</div>
       )}
     </main>
   );
