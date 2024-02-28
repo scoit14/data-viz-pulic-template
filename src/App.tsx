@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import papa from 'papaparse'
 import "./App.css";
 import type { DataRow, PieDataRow } from "./types";
-import { PieChart, Pie, Cell, LabelList } from "recharts";
+import { PieChart, Pie, Cell, LabelList, ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Rectangle } from "recharts";
+
 
 const App = () => {
   const [csvData,setCsvData] = useState<DataRow[]>([]);
@@ -31,10 +32,10 @@ const App = () => {
       let newPieData : PieDataRow[] = [];
       csvData.forEach(
         (row)=>{
-          if (!newPieCounts[row["Manner of Collision"]]) {
-            newPieCounts[row["Manner of Collision"]] = 0; // initialize if not there...
+          if (!newPieCounts[row["Age of Driver - Youngest Known"]]) {
+            newPieCounts[row["Age of Driver - Youngest Known"]] = 0; // initialize if not there...
           }
-          newPieCounts[row["Manner of Collision"]]++ // Add one!
+          newPieCounts[row["Age of Driver - Youngest Known"]]++ // Add one!
         }
       )
       for (let key in newPieCounts) {
@@ -52,7 +53,7 @@ const App = () => {
     <main style={{maxWidth:800,margin:'auto'}}>
       <h1>Hello Data Visualization</h1>
       <p>Loaded {csvData.length} rows of CSV Data!</p>
-      <h2>Favorite Colors:</h2>
+      <h2>Crash Data</h2>
       <PieChart width={300} height={300}>
         <Pie data={pieData} dataKey="value" nameKey="name" label fill="yellow">
           <LabelList dataKey="name" position="middle"/>
@@ -63,7 +64,27 @@ const App = () => {
         </Pie>
 
       </PieChart>
-      {
+      {/*<ResponsiveContainer width="100%" height="100%">*/}
+        <BarChart
+          width={1200}
+          height={300}
+          data={pieData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+          
+        </BarChart>
+      {/*</ResponsiveContainer>*/} {
         pieData.map(
           (row,idx)=><div key={idx}>{row.name} : {row.value}</div>
         )        
@@ -71,7 +92,7 @@ const App = () => {
 
 
       {csvData.map(
-        (row,idx)=><div key={idx}>{}'s favorite color is {row["Age of Driver - Youngest Known"]} and they play {row["Age of Driver - Oldest"]}</div>
+        (row,idx)=><div key={idx}>{}'s favorite color is {row["Age of Driver - Youngest Known"]} and they play {row["Age of Driver - Oldest Known"]}</div>
       )}
     </main>
   );
