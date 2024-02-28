@@ -4,6 +4,18 @@ import "./App.css";
 import type { DataRow, PieDataRow } from "./types";
 import { PieChart, Pie, Cell, LabelList, ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Rectangle } from "recharts";
 
+const percentageDriversByAge = {
+  '16-17':0.5+0.8,
+  '18-20':1.1+1.3+1.4,
+'21-24':3+1.5+1.6,
+'25-34':8.4+9.0,
+'35-44':8.7+8.4,
+'45-54':7.7+8.2,
+'55-64':8.3+8.4,
+'65-74':7.4+6.0,
+
+
+}
 
 const App = () => {
   const [csvData,setCsvData] = useState<DataRow[]>([]);
@@ -40,8 +52,11 @@ const App = () => {
       )
       for (let key in newPieCounts) {
         newPieData.push(
-          {name : key, value : newPieCounts[key]}
-        )
+          {name : key, value : newPieCounts[key], 
+            percentageOfDrivers : percentageDriversByAge[key], 
+            scaledValue : newPieCounts[key]/percentageDriversByAge[key]
+          }
+        );
       }
       setPieData(newPieData);
       console.log('Set new pie data!',newPieData)
@@ -54,16 +69,7 @@ const App = () => {
       <h1>Hello Data Visualization</h1>
       <p>Loaded {csvData.length} rows of CSV Data!</p>
       <h2>Crash Data</h2>
-      <PieChart width={300} height={300}>
-        <Pie data={pieData} dataKey="value" nameKey="name" label fill="yellow">
-          <LabelList dataKey="name" position="middle"/>
-          {
-          pieData.map(
-            (entry)=>(<Cell key={entry.name} fill={entry.name.toLowerCase()} />)
-          )}
-        </Pie>
-
-      </PieChart>
+      
       {/*<ResponsiveContainer width="100%" height="100%">*/}
         <BarChart
           width={1200}
