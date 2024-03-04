@@ -106,6 +106,7 @@ const App = () => {
     <main style={{maxWidth:800,margin:'auto'}}>
       <h1>Lowell Crash Data: 2020-2024 </h1>
       <h2>Crash Data</h2>
+      <h4>Crash data in Lowell, Massachusetts from 2020-2024. Each bar graph represents different data graphs. The scaled value is represented by multiplying the percent of drivers by 0.01, and then dividing the total crashes over the new %. </h4>
       <button onClick={()=>setDataKey("value")}>Raw Data</button>
       <button onClick={()=>setDataKey("percentageOfDrivers")}>% of Drivers</button>
       <button onClick={()=>setDataKey("scaledValue")}># of Crashes if All Drivers were X Age</button>
